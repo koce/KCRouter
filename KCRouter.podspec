@@ -12,12 +12,11 @@ Pod::Spec.new do |s|
   s.swift_version = '4.2'
 
   s.ios.deployment_target = '8.0'
-  s.watchos.deployment_target = '2.0'
 
   s.source       = { :git => 'https://github.com/koce/KCRouter.git', :tag => s.version.to_s }
   
   s.requires_arc = true
-  s.source_files = [KCRouter/KCRouter/*.swift]
+  s.source_files = ["KCRouter/KCRouter/*.swift"]
   
   s.frameworks = 'Foundation', 'UIKit'
 
