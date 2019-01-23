@@ -8,7 +8,7 @@
 
 import Foundation
 
-public class KCRouter {
+open class KCRouter {
     public static let shared = KCRouter()
     private init() {}
     
