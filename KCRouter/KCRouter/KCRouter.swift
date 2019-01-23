@@ -25,6 +25,9 @@ public class KCRouter {
     
     @discardableResult
     public func open(url: AnyHashable) -> Bool {
+        if let route = routes[url] {
+            return route.handle(nil)
+        }
         return false
     }
 }
