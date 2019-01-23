@@ -12,7 +12,9 @@ public typealias KCGotoParams = [AnyHashable : Any]
 
 public protocol KCRouteCompatible {
     func setIdentifier(_ identifier: AnyHashable)
+    func getIdentifier() -> AnyHashable?
     func setParams(_ params: KCGotoParams?)
+    func getParams() -> KCGotoParams?
 }
 
 public struct KCRouteConf {
@@ -216,20 +218,30 @@ extension KCRouteViewControllerFactory {
     }
 }
 
-private struct KCDefaultFactory: KCRouteViewControllerFactory {}
 private struct KCDefaultGotoHandler: KCGotoHandler {}
+private struct KCDefaultFactory: KCRouteViewControllerFactory {}
 
 public struct KCRoute {
     public var conf: KCRouteConf
     public var gotoHandler: KCGotoHandler
     public var factory: KCRouteViewControllerFactory
     
-    init(conf: KCRouteConf,
-         gotoHandler: KCGotoHandler = KCDefaultGotoHandler(),
-         factory: KCRouteViewControllerFactory = KCDefaultFactory()) {
+    public init(conf: KCRouteConf,
+                gotoHandler: KCGotoHandler? = nil,
+                factory: KCRouteViewControllerFactory? = nil) {
         self.conf = conf
-        self.gotoHandler = gotoHandler
-        self.factory = factory
+        
+        if gotoHandler != nil {
+            self.gotoHandler = gotoHandler!
+        } else {
+            self.gotoHandler = KCDefaultGotoHandler()
+        }
+        
+        if factory != nil {
+            self.factory = factory!
+        } else {
+            self.factory = KCDefaultFactory()
+        }
     }
     
     public func handle(_ params: KCGotoParams?) -> Bool {

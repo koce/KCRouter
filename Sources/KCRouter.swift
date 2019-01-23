@@ -18,37 +18,26 @@ open class KCRouter {
         routes[url] = route
     }
     
-    public func map(url: AnyHashable, to controller: String) {
-        let conf = KCRouteConf(url: url, to: controller)
-        let route = KCRoute(conf: conf)
-        map(url: url, route: route)
-    }
-    
     public func map(url: AnyHashable,
-                    to controller: String,
-                    factory: KCRouteViewControllerFactory) {
-        let conf = KCRouteConf(url: url, to: controller)
-        let route = KCRoute(conf: conf, factory: factory)
-        map(url: url, route: route)
-    }
-    
-    public func map(url: AnyHashable,
-                    to controller: String,
-                    gotoHandler: KCGotoHandler) {
-        let conf = KCRouteConf(url: url, to: controller)
-        let route = KCRoute(conf: conf, gotoHandler: gotoHandler)
-        map(url: url, route: route)
-    }
-    
-    public func map(url: AnyHashable,
-                    to controller: String,
-                    gotoHandler: KCGotoHandler,
-                    factory: KCRouteViewControllerFactory) {
-        let conf = KCRouteConf(url: url, to: controller)
+                    conf: KCRouteConf,
+                    gotoHandler: KCGotoHandler? = nil,
+                    factory: KCRouteViewControllerFactory? = nil) {
         let route = KCRoute(conf: conf, gotoHandler: gotoHandler, factory: factory)
         map(url: url, route: route)
     }
     
+    public func map(url: AnyHashable, to controller: String) {
+        let conf = KCRouteConf(url: url, to: controller)
+        map(url: url, conf: conf)
+    }
+    
+    public func map(url: AnyHashable,
+                    to controller: String,
+                    gotoHandler: KCGotoHandler? = nil,
+                    factory: KCRouteViewControllerFactory? = nil) {
+        let conf = KCRouteConf(url: url, to: controller)
+        map(url: url, conf: conf, gotoHandler: gotoHandler, factory: factory)
+    }
     
     @discardableResult
     public func open(url: AnyHashable) -> Bool {
