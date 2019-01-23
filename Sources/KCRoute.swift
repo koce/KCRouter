@@ -140,6 +140,7 @@ extension KCGotoHandler {
         if toIndex != nil {
             if let controllers = tabBarController.viewControllers {
                 if controllers.count > toIndex! {
+                    tabBarController.selectedIndex = toIndex!
                     toNavigationController = controllers[toIndex!] as? UINavigationController
                 }
             }
