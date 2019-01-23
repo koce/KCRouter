@@ -20,13 +20,44 @@ public class KCRouter {
     
     public func map(url: AnyHashable, to controller: String) {
         let conf = KCRouteConf(url: url, to: controller)
-        routes[url] = KCRoute(conf: conf)
+        let route = KCRoute(conf: conf)
+        map(url: url, route: route)
     }
+    
+    public func map(url: AnyHashable,
+                    to controller: String,
+                    factory: KCRouteViewControllerFactory) {
+        let conf = KCRouteConf(url: url, to: controller)
+        let route = KCRoute(conf: conf, factory: factory)
+        map(url: url, route: route)
+    }
+    
+    public func map(url: AnyHashable,
+                    to controller: String,
+                    gotoHandler: KCGotoHandler) {
+        let conf = KCRouteConf(url: url, to: controller)
+        let route = KCRoute(conf: conf, gotoHandler: gotoHandler)
+        map(url: url, route: route)
+    }
+    
+    public func map(url: AnyHashable,
+                    to controller: String,
+                    gotoHandler: KCGotoHandler,
+                    factory: KCRouteViewControllerFactory) {
+        let conf = KCRouteConf(url: url, to: controller)
+        let route = KCRoute(conf: conf, gotoHandler: gotoHandler, factory: factory)
+        map(url: url, route: route)
+    }
+    
     
     @discardableResult
     public func open(url: AnyHashable) -> Bool {
+        return open(url: url, params: nil)
+    }
+    
+    public func open(url: AnyHashable, params: KCGotoParams?) -> Bool {
         if let route = routes[url] {
-            return route.handle(nil)
+            return route.handle(params)
         }
         return false
     }
