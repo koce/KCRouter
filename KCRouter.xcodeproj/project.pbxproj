@@ -7,16 +7,18 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C195987E21F8A22600B749B6 /* KCRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C195987C21F8A22600B749B6 /* KCRouter.swift */; };
+		C195987F21F8A22600B749B6 /* KCRoute.swift in Sources */ = {isa = PBXBuildFile; fileRef = C195987D21F8A22600B749B6 /* KCRoute.swift */; };
 		C1CEE3812102E631009419C2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1CEE3802102E631009419C2 /* AppDelegate.swift */; };
 		C1CEE3832102E631009419C2 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1CEE3822102E631009419C2 /* ViewController.swift */; };
 		C1CEE3862102E631009419C2 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C1CEE3842102E631009419C2 /* Main.storyboard */; };
 		C1CEE3882102E635009419C2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C1CEE3872102E635009419C2 /* Assets.xcassets */; };
 		C1CEE38B2102E635009419C2 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C1CEE3892102E635009419C2 /* LaunchScreen.storyboard */; };
-		C1E3D81D21DF7EF700B1DC70 /* KCRoute.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1E3D81C21DF7EF700B1DC70 /* KCRoute.swift */; };
-		C1E3D81F21DF7F1C00B1DC70 /* KCRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1E3D81E21DF7F1C00B1DC70 /* KCRouter.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		C195987C21F8A22600B749B6 /* KCRouter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KCRouter.swift; sourceTree = "<group>"; };
+		C195987D21F8A22600B749B6 /* KCRoute.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KCRoute.swift; sourceTree = "<group>"; };
 		C1CEE37D2102E631009419C2 /* KCRouter.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = KCRouter.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C1CEE3802102E631009419C2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C1CEE3822102E631009419C2 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -24,8 +26,6 @@
 		C1CEE3872102E635009419C2 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C1CEE38A2102E635009419C2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C1CEE38C2102E635009419C2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		C1E3D81C21DF7EF700B1DC70 /* KCRoute.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KCRoute.swift; sourceTree = "<group>"; };
-		C1E3D81E21DF7F1C00B1DC70 /* KCRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KCRouter.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -39,9 +39,19 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		C195987B21F8A22600B749B6 /* Sources */ = {
+			isa = PBXGroup;
+			children = (
+				C195987C21F8A22600B749B6 /* KCRouter.swift */,
+				C195987D21F8A22600B749B6 /* KCRoute.swift */,
+			);
+			path = Sources;
+			sourceTree = "<group>";
+		};
 		C1CEE3742102E631009419C2 = {
 			isa = PBXGroup;
 			children = (
+				C195987B21F8A22600B749B6 /* Sources */,
 				C1CEE37F2102E631009419C2 /* KCRouter */,
 				C1CEE37E2102E631009419C2 /* Products */,
 			);
@@ -58,22 +68,12 @@
 		C1CEE37F2102E631009419C2 /* KCRouter */ = {
 			isa = PBXGroup;
 			children = (
-				C1CEE3922102E681009419C2 /* KCRouter */,
 				C1CEE3802102E631009419C2 /* AppDelegate.swift */,
 				C1CEE3822102E631009419C2 /* ViewController.swift */,
 				C1CEE3842102E631009419C2 /* Main.storyboard */,
 				C1CEE3872102E635009419C2 /* Assets.xcassets */,
 				C1CEE3892102E635009419C2 /* LaunchScreen.storyboard */,
 				C1CEE38C2102E635009419C2 /* Info.plist */,
-			);
-			path = KCRouter;
-			sourceTree = "<group>";
-		};
-		C1CEE3922102E681009419C2 /* KCRouter */ = {
-			isa = PBXGroup;
-			children = (
-				C1E3D81C21DF7EF700B1DC70 /* KCRoute.swift */,
-				C1E3D81E21DF7F1C00B1DC70 /* KCRouter.swift */,
 			);
 			path = KCRouter;
 			sourceTree = "<group>";
@@ -149,9 +149,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C1E3D81F21DF7F1C00B1DC70 /* KCRouter.swift in Sources */,
 				C1CEE3832102E631009419C2 /* ViewController.swift in Sources */,
-				C1E3D81D21DF7EF700B1DC70 /* KCRoute.swift in Sources */,
+				C195987F21F8A22600B749B6 /* KCRoute.swift in Sources */,
+				C195987E21F8A22600B749B6 /* KCRouter.swift in Sources */,
 				C1CEE3812102E631009419C2 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -297,6 +297,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 4B8HES4V99;
 				INFOPLIST_FILE = KCRouter/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -314,6 +315,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 4B8HES4V99;
 				INFOPLIST_FILE = KCRouter/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

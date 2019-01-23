@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name         = 'KCRouter'
-  s.version      = '1.0.0'
+  s.version      = '1.0.1'
   s.summary      = 'iOS Route'
 
   s.license      = { :type => 'MIT', :file => 'LICENSE' }
@@ -16,7 +16,7 @@ Pod::Spec.new do |s|
   s.source       = { :git => 'https://github.com/koce/KCRouter.git', :tag => s.version.to_s }
   
   s.requires_arc = true
-  s.source_files = ["KCRouter/KCRouter/*.swift"]
+  s.source_files = ["Sources/*.swift"]
   
   s.frameworks = 'Foundation', 'UIKit'
 
