@@ -1,0 +1,7 @@
+*.DS_Store
+
+Pods/
+
+KCRouter.xcworkspace/
+KCRouter.xcodeproj/xcuserdata/
+xcuserdata/
