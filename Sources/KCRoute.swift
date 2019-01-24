@@ -11,11 +11,42 @@ import UIKit
 public typealias KCGotoParams = [AnyHashable : Any]
 
 public protocol KCRouteCompatible {
+    
+    /// 设置路由id
+    ///
+    /// - Parameter identifier: 路由id
     func setIdentifier(_ identifier: AnyHashable)
+    
+    /// 获取路由id
+    ///
+    /// - Returns: 路由id
     func getIdentifier() -> AnyHashable?
+    
+    /// 设置跳转参数
+    ///
+    /// - Parameter params: 参数
     func setParams(_ params: KCGotoParams?)
+    
+    /// 获取跳转参数
+    ///
+    /// - Returns: 跳转参数
     func getParams() -> KCGotoParams?
 }
+
+
+///  根据类名获取类型
+///
+/// - Parameter name: 类名
+/// - Returns: 类型
+public func KCRouteGetClass(with name: String) -> AnyClass? {
+    /// 获取命名空间
+    guard let clsName = Bundle.main.infoDictionary!["CFBundleExecutable"] else {
+        return nil
+    }
+    let cls: AnyClass? = NSClassFromString((clsName as! String) + "." + name)
+    return cls
+}
+
 
 public struct KCRouteConf {
     
@@ -56,7 +87,8 @@ public struct KCRouteConf {
                 isPresent: Bool = false,
                 hideBottom: Bool = true,
                 isOnly: Bool = false,
-                isRoot: Bool = false) {
+                isRoot: Bool = false)
+    {
         self.url = url
         self.openClass = KCRouteGetClass(with: className)
         
@@ -70,10 +102,7 @@ public struct KCRouteConf {
     
 }
 
-public protocol KCGotoHandler {}
-
-extension KCGotoHandler {
-    
+public protocol KCGotoHandler {
     /// 处理跳转事件
     ///
     /// - Parameters:
@@ -81,16 +110,9 @@ extension KCGotoHandler {
     ///   - params: 跳转参数
     ///   - factory: 创建视图控制器工厂
     /// - Returns: 是否成功跳转
-    public func handle(conf: KCRouteConf,
-                       params: KCGotoParams?,
-                       factory: KCRouteViewControllerFactory) -> Bool {
-        
-        if conf.isPresent {
-            return handlePresent(conf: conf, params: params, factory: factory)
-        } else {
-            return handlePush(conf: conf, params: params, factory: factory)
-        }
-    }
+    func handle(conf: KCRouteConf,
+                params: KCGotoParams?,
+                factory: KCRouteViewControllerFactory) -> Bool
     
     /// 处理Presnet事件
     ///
@@ -99,9 +121,50 @@ extension KCGotoHandler {
     ///   - params: 跳转参数
     ///   - factory: 创建视图控制器工厂
     /// - Returns: 是否成功跳转
+    func handlePresent(conf: KCRouteConf,
+                       params: KCGotoParams?,
+                       factory: KCRouteViewControllerFactory) -> Bool
+    
+    /// 处理Push事件
+    ///
+    /// - Parameters:
+    ///   - conf: 配置
+    ///   - params: 跳转参数
+    ///   - factory: 创建视图控制器工厂
+    /// - Returns: 是否成功跳转
+    func handlePush(conf: KCRouteConf,
+                    params: KCGotoParams?,
+                    factory: KCRouteViewControllerFactory) -> Bool
+    
+    /// push视图控制器
+    ///
+    /// - Parameters:
+    ///   - controller: 要Push的视图控制器
+    ///   - conf: 配置
+    ///   - navigation: 导航控制器
+    /// - Returns: 是否成功跳转
+    func pushViewController(_ controller: UIViewController,
+                            conf: KCRouteConf,
+                            in navigation: UINavigationController) -> Bool
+}
+
+extension KCGotoHandler {
+    
+    public func handle(conf: KCRouteConf,
+                       params: KCGotoParams?,
+                       factory: KCRouteViewControllerFactory) -> Bool
+    {
+        if conf.isPresent {
+            return handlePresent(conf: conf, params: params, factory: factory)
+        } else {
+            return handlePush(conf: conf, params: params, factory: factory)
+        }
+    }
+    
     public func handlePresent(conf: KCRouteConf,
                               params: KCGotoParams?,
-                              factory: KCRouteViewControllerFactory) -> Bool {
+                              factory: KCRouteViewControllerFactory) -> Bool
+    {
         guard let tabBarController = factory.getTabBarController(),
             let controller = factory.createViewController(conf: conf, params: params) else {
             return false
@@ -120,16 +183,10 @@ extension KCGotoHandler {
         return true
     }
     
-    /// 处理Push事件
-    ///
-    /// - Parameters:
-    ///   - conf: 配置
-    ///   - params: 跳转参数
-    ///   - factory: 创建视图控制器工厂
-    /// - Returns: 是否成功跳转
     public func handlePush(conf: KCRouteConf,
                            params: KCGotoParams?,
-                           factory: KCRouteViewControllerFactory) -> Bool {
+                           factory: KCRouteViewControllerFactory) -> Bool
+    {
         guard let tabBarController = factory.getTabBarController(),
             let controller = factory.createViewController(conf: conf, params: params) else {
                 return false
@@ -154,32 +211,39 @@ extension KCGotoHandler {
         return false
     }
     
-    /// push视图控制器
-    ///
-    /// - Parameters:
-    ///   - controller: 要Push的视图控制器
-    ///   - conf: 配置
-    ///   - navigation: 导航控制器
-    /// - Returns: 是否成功跳转
     public func pushViewController(_ controller: UIViewController,
                                    conf: KCRouteConf,
-                                   in navigation: UINavigationController) -> Bool {
+                                   in navigation: UINavigationController) -> Bool
+    {
         navigation.pushViewController(controller, animated: true)
         return true
     }
 }
 
 public protocol KCRouteViewControllerFactory {
+    
+    /// 获取堆栈
+    ///
+    /// - Returns: 堆栈
     func getTabBarController() -> UITabBarController?
+    
+    /// 创建导航控制器
+    ///
+    /// - Parameter rootViewController: 导航控制器的根视图控制器
+    /// - Returns: 导航控制器
     func createNavigationController(rootViewController: UIViewController) -> UINavigationController
+    
+    /// 创建视图控制器
+    ///
+    /// - Parameters:
+    ///   - conf: 配置
+    ///   - params: 跳转参数
+    /// - Returns: 视图控制器
     func createViewController(conf: KCRouteConf, params: KCGotoParams?) -> UIViewController?
 }
 
 extension KCRouteViewControllerFactory {
     
-    /// 获取堆栈
-    ///
-    /// - Returns: 堆栈
     public func getTabBarController() -> UITabBarController? {
         if let keyWindow = UIApplication.shared.keyWindow,
             let rootController = keyWindow.rootViewController {
@@ -188,20 +252,10 @@ extension KCRouteViewControllerFactory {
         return nil
     }
     
-    /// 创建导航控制器
-    ///
-    /// - Parameter rootViewController: 导航控制器的根视图控制器
-    /// - Returns: 导航控制器
     public func createNavigationController(rootViewController: UIViewController) -> UINavigationController {
         return UINavigationController(rootViewController: rootViewController)
     }
     
-    /// 创建视图控制器
-    ///
-    /// - Parameters:
-    ///   - conf: 配置
-    ///   - params: 跳转参数
-    /// - Returns: 视图控制器
     public func createViewController(conf: KCRouteConf, params: KCGotoParams?) -> UIViewController? {
         guard let openClass = conf.openClass,
             let controllerClass = openClass as? UIViewController.Type else {
@@ -229,7 +283,8 @@ public struct KCRoute {
     
     public init(conf: KCRouteConf,
                 gotoHandler: KCGotoHandler? = nil,
-                factory: KCRouteViewControllerFactory? = nil) {
+                factory: KCRouteViewControllerFactory? = nil)
+    {
         self.conf = conf
         
         if gotoHandler != nil {
@@ -248,18 +303,4 @@ public struct KCRoute {
     public func handle(_ params: KCGotoParams?) -> Bool {
         return gotoHandler.handle(conf: conf, params: params, factory: factory)
     }
-}
-
-
-///  根据类名获取类型
-///
-/// - Parameter name: 类名
-/// - Returns: 类型
-public func KCRouteGetClass(with name: String) -> AnyClass? {
-    /// 获取命名空间
-    guard let clsName = Bundle.main.infoDictionary!["CFBundleExecutable"] else {
-        return nil
-    }
-    let cls: AnyClass? = NSClassFromString((clsName as! String) + "." + name)
-    return cls
 }

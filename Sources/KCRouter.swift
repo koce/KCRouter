@@ -21,12 +21,14 @@ open class KCRouter {
     public func map(url: AnyHashable,
                     conf: KCRouteConf,
                     gotoHandler: KCGotoHandler? = nil,
-                    factory: KCRouteViewControllerFactory? = nil) {
+                    factory: KCRouteViewControllerFactory? = nil)
+    {
         let route = KCRoute(conf: conf, gotoHandler: gotoHandler, factory: factory)
         map(url: url, route: route)
     }
     
-    public func map(url: AnyHashable, to controller: String) {
+    public func map(url: AnyHashable, to controller: String)
+    {
         let conf = KCRouteConf(url: url, to: controller)
         map(url: url, conf: conf)
     }
@@ -34,7 +36,8 @@ open class KCRouter {
     public func map(url: AnyHashable,
                     to controller: String,
                     gotoHandler: KCGotoHandler? = nil,
-                    factory: KCRouteViewControllerFactory? = nil) {
+                    factory: KCRouteViewControllerFactory? = nil)
+    {
         let conf = KCRouteConf(url: url, to: controller)
         map(url: url, conf: conf, gotoHandler: gotoHandler, factory: factory)
     }
