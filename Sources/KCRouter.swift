@@ -47,6 +47,7 @@ open class KCRouter {
         return open(url: url, params: nil)
     }
     
+    @discardableResult
     public func open(url: AnyHashable, params: KCGotoParams?) -> Bool {
         if let route = routes[url] {
             return route.handle(params)

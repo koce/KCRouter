@@ -33,7 +33,6 @@ public protocol KCRouteCompatible {
     func getParams() -> KCGotoParams?
 }
 
-
 ///  根据类名获取类型
 ///
 /// - Parameter name: 类名
@@ -103,6 +102,7 @@ public struct KCRouteConf {
 }
 
 public protocol KCGotoHandler {
+    
     /// 处理跳转事件
     ///
     /// - Parameters:
@@ -215,6 +215,32 @@ extension KCGotoHandler {
                                    conf: KCRouteConf,
                                    in navigation: UINavigationController) -> Bool
     {
+        if conf.isOnly {
+            if let compatibleController = controller as? KCRouteCompatible,
+                let identifier = compatibleController.getIdentifier() {
+                
+                var viewControllers = [UIViewController]()
+                
+                for viewController in navigation.viewControllers {
+                    if let compatible = viewController as? KCRouteCompatible,
+                        let id = compatible.getIdentifier() {
+                        
+                        if id == identifier {
+                            
+                            //重设参数
+                            let params = compatibleController.getParams()
+                            compatible.setParams(params)
+                            viewControllers.append(viewController)
+                            
+                            navigation.setViewControllers(viewControllers, animated: true)
+                            return true
+                        }
+                    }
+                    viewControllers.append(viewController)
+                }
+            }
+        }
+        
         navigation.pushViewController(controller, animated: true)
         return true
     }
