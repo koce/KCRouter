@@ -165,12 +165,12 @@ extension KCGotoHandler {
                               params: KCGotoParams?,
                               factory: KCRouteViewControllerFactory) -> Bool
     {
-        guard let tabBarController = factory.getTabBarController(),
+        guard let rootController = factory.getRootViewController(),
             let controller = factory.createViewController(conf: conf, params: params) else {
             return false
         }
         
-        if let presented = tabBarController.presentedViewController {
+        if let presented = rootController.presentedViewController {
             if let navi = presented as? UINavigationController {
                 return pushViewController(controller, conf: conf, in: navi)
             } else {
@@ -179,7 +179,7 @@ extension KCGotoHandler {
         }
         
         let navi = factory.createNavigationController(rootViewController: controller)
-        tabBarController.present(navi, animated: true, completion: nil)
+        rootController.present(navi, animated: true, completion: nil)
         return true
     }
     
@@ -187,22 +187,28 @@ extension KCGotoHandler {
                            params: KCGotoParams?,
                            factory: KCRouteViewControllerFactory) -> Bool
     {
-        guard let tabBarController = factory.getTabBarController(),
+        guard let rootController = factory.getRootViewController(),
             let controller = factory.createViewController(conf: conf, params: params) else {
                 return false
         }
         
-        let toIndex = conf.tabbarIndex
         var toNavigationController: UINavigationController?
-        if toIndex != nil {
-            if let controllers = tabBarController.viewControllers {
-                if controllers.count > toIndex! {
-                    tabBarController.selectedIndex = toIndex!
-                    toNavigationController = controllers[toIndex!] as? UINavigationController
+        
+        if let tabBarController = rootController as? UITabBarController {
+            
+            if let toIndex = conf.tabbarIndex,
+                let controllers = tabBarController.viewControllers {  //需要切换tab
+                
+                if controllers.count > toIndex { //可以切换
+                    tabBarController.selectedIndex = toIndex
+                    toNavigationController = controllers[toIndex] as? UINavigationController
                 }
+            } else if let viewController = tabBarController.selectedViewController {
+                toNavigationController = viewController as? UINavigationController
             }
-        } else if let viewController = tabBarController.selectedViewController {
-            toNavigationController = viewController as? UINavigationController
+            
+        } else if let navigationController = rootController as? UINavigationController {
+            toNavigationController = navigationController
         }
         
         if toNavigationController != nil {
@@ -215,6 +221,7 @@ extension KCGotoHandler {
                                    conf: KCRouteConf,
                                    in navigation: UINavigationController) -> Bool
     {
+        // 页面唯一
         if conf.isOnly {
             if let compatibleController = controller as? KCRouteCompatible,
                 let identifier = compatibleController.getIdentifier() {
@@ -248,10 +255,12 @@ extension KCGotoHandler {
 
 public protocol KCRouteViewControllerFactory {
     
-    /// 获取堆栈
+    /// 获取页面根控制器
+    /// Notice: 根控制器必须为 UITabbarController 或 UINavagationController
+    /// ‼️建议自己实现‼️
     ///
-    /// - Returns: 堆栈
-    func getTabBarController() -> UITabBarController?
+    /// - Returns: UIViewController
+    func getRootViewController() -> UIViewController?
     
     /// 创建导航控制器
     ///
@@ -270,10 +279,9 @@ public protocol KCRouteViewControllerFactory {
 
 extension KCRouteViewControllerFactory {
     
-    public func getTabBarController() -> UITabBarController? {
-        if let keyWindow = UIApplication.shared.keyWindow,
-            let rootController = keyWindow.rootViewController {
-            return rootController as? UITabBarController
+    public func getRootViewController() -> UIViewController? {
+        if let keyWindow = UIApplication.shared.keyWindow {
+            return keyWindow.rootViewController
         }
         return nil
     }
