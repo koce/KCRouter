@@ -159,6 +159,7 @@ public protocol KCGotoHandler {
 
 extension KCGotoHandler {
     
+    /// 处理跳转事件
     public func handle(conf: KCRouteConf,
                        params: KCGotoParams?,
                        factory: KCRouteViewControllerFactory) -> Bool
@@ -170,6 +171,7 @@ extension KCGotoHandler {
         }
     }
     
+    /// 处理Presnet事件
     public func handlePresent(conf: KCRouteConf,
                               params: KCGotoParams?,
                               factory: KCRouteViewControllerFactory) -> Bool
@@ -192,6 +194,7 @@ extension KCGotoHandler {
         return true
     }
     
+    /// 处理Push事件
     public func handlePush(conf: KCRouteConf,
                            params: KCGotoParams?,
                            factory: KCRouteViewControllerFactory) -> Bool
@@ -226,6 +229,7 @@ extension KCGotoHandler {
         return false
     }
     
+    /// Push视图控制器
     public func pushViewController(_ controller: UIViewController,
                                    conf: KCRouteConf,
                                    in navigation: UINavigationController) -> Bool
@@ -237,6 +241,7 @@ extension KCGotoHandler {
         return true
     }
     
+    /// Pop到目的视图控制器
     public func popToViewController(_ controller: UIViewController,
                                     in navigation: UINavigationController) -> Bool
     {
@@ -290,6 +295,7 @@ public protocol KCRouteViewControllerFactory {
 
 extension KCRouteViewControllerFactory {
     
+    /// 获取页面根控制器
     public func getRootViewController() -> UIViewController? {
         if let keyWindow = UIApplication.shared.keyWindow {
             return keyWindow.rootViewController
@@ -297,10 +303,12 @@ extension KCRouteViewControllerFactory {
         return nil
     }
     
+    /// 创建导航控制器
     public func createNavigationController(rootViewController: UIViewController) -> UINavigationController {
         return UINavigationController(rootViewController: rootViewController)
     }
     
+    /// 创建视图控制器
     public func createViewController(conf: KCRouteConf, params: KCGotoParams?) -> UIViewController? {
         guard let openClass = conf.openClass,
             let controllerClass = openClass as? UIViewController.Type else {
