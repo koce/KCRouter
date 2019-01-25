@@ -136,7 +136,7 @@ public protocol KCGotoHandler {
                     params: KCGotoParams?,
                     factory: KCRouteViewControllerFactory) -> Bool
     
-    /// push视图控制器
+    /// Push视图控制器
     ///
     /// - Parameters:
     ///   - controller: 要Push的视图控制器
@@ -146,6 +146,15 @@ public protocol KCGotoHandler {
     func pushViewController(_ controller: UIViewController,
                             conf: KCRouteConf,
                             in navigation: UINavigationController) -> Bool
+    
+    /// Pop到目的视图控制器
+    ///
+    /// - Parameters:
+    ///   - controller: 目的视图控制器
+    ///   - navigation: 要Pop的 navigationController
+    /// - Returns: 是否Pop成功
+    func popToViewController(_ controller: UIViewController,
+                             in navigation: UINavigationController) -> Bool
 }
 
 extension KCGotoHandler {
@@ -221,35 +230,37 @@ extension KCGotoHandler {
                                    conf: KCRouteConf,
                                    in navigation: UINavigationController) -> Bool
     {
-        // 页面唯一
-        if conf.isOnly {
-            if let compatibleController = controller as? KCRouteCompatible,
-                let identifier = compatibleController.getIdentifier() {
-                
-                var viewControllers = [UIViewController]()
-                
-                for viewController in navigation.viewControllers {
-                    if let compatible = viewController as? KCRouteCompatible,
-                        let id = compatible.getIdentifier() {
-                        
-                        if id == identifier {
-                            
-                            //重设参数
-                            let params = compatibleController.getParams()
-                            compatible.setParams(params)
-                            viewControllers.append(viewController)
-                            
-                            navigation.setViewControllers(viewControllers, animated: true)
-                            return true
-                        }
-                    }
-                    viewControllers.append(viewController)
-                }
-            }
+        if conf.isOnly, popToViewController(controller, in: navigation)  {  //页面唯一
+            return true
         }
-        
         navigation.pushViewController(controller, animated: true)
         return true
+    }
+    
+    public func popToViewController(_ controller: UIViewController,
+                                    in navigation: UINavigationController) -> Bool
+    {
+        guard let compatibleController = controller as? KCRouteCompatible,
+            let identifier = compatibleController.getIdentifier() else {
+            return false
+        }
+        
+        var viewControllers = [UIViewController]()
+        for viewController in navigation.viewControllers {
+            if let compatible = viewController as? KCRouteCompatible  {
+                if identifier == compatible.getIdentifier() {
+                    //重设参数
+                    let params = compatibleController.getParams()
+                    compatible.setParams(params)
+                    viewControllers.append(viewController)
+                    
+                    navigation.setViewControllers(viewControllers, animated: true)
+                    return true
+                }
+            }
+            viewControllers.append(viewController)
+        }
+        return false
     }
 }
 
