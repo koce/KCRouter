@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name         = 'KCRouter'
-  s.version      = '1.0.2'
+  s.version      = '1.0.3'
   s.summary      = 'A Swift Route For iOS'
 
   s.license      = { :type => 'MIT', :file => 'LICENSE' }
@@ -9,7 +9,7 @@ Pod::Spec.new do |s|
   s.social_media_url = 'http://www.jianshu.com/u/083bd990bfe2'
   s.homepage     = 'https://github.com/koce/KCRouter'
 
-  s.swift_version = '4.2'
+  s.swift_version = '5.0'
 
   s.ios.deployment_target = '8.0'
 
