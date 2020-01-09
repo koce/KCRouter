@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name         = 'KCRouter'
-  s.version      = '1.0.3'
+  s.version      = '1.0.4'
   s.summary      = 'A Swift Route For iOS'
 
   s.license      = { :type => 'MIT', :file => 'LICENSE' }

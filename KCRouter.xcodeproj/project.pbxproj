@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C1793D6723C721DF00DCAA11 /* KCNavigatorMaps.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1793D6623C721DF00DCAA11 /* KCNavigatorMaps.swift */; };
+		C1793D6923C7221D00DCAA11 /* BaseNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1793D6823C7221D00DCAA11 /* BaseNavigationController.swift */; };
+		C1793D6B23C7227100DCAA11 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1793D6A23C7227100DCAA11 /* HomeViewController.swift */; };
+		C1793D6D23C7232F00DCAA11 /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1793D6C23C7232F00DCAA11 /* SettingViewController.swift */; };
 		C195987E21F8A22600B749B6 /* KCRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C195987C21F8A22600B749B6 /* KCRouter.swift */; };
 		C195987F21F8A22600B749B6 /* KCRoute.swift in Sources */ = {isa = PBXBuildFile; fileRef = C195987D21F8A22600B749B6 /* KCRoute.swift */; };
 		C1CEE3812102E631009419C2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1CEE3802102E631009419C2 /* AppDelegate.swift */; };
@@ -17,6 +21,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		C1793D6623C721DF00DCAA11 /* KCNavigatorMaps.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KCNavigatorMaps.swift; sourceTree = "<group>"; };
+		C1793D6823C7221D00DCAA11 /* BaseNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseNavigationController.swift; sourceTree = "<group>"; };
+		C1793D6A23C7227100DCAA11 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
+		C1793D6C23C7232F00DCAA11 /* SettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
 		C195987C21F8A22600B749B6 /* KCRouter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KCRouter.swift; sourceTree = "<group>"; };
 		C195987D21F8A22600B749B6 /* KCRoute.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KCRoute.swift; sourceTree = "<group>"; };
 		C1CEE37D2102E631009419C2 /* KCRouter.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = KCRouter.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -39,6 +47,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		C1793D6523C721BF00DCAA11 /* Demo */ = {
+			isa = PBXGroup;
+			children = (
+				C1793D6623C721DF00DCAA11 /* KCNavigatorMaps.swift */,
+				C1793D6823C7221D00DCAA11 /* BaseNavigationController.swift */,
+				C1793D6A23C7227100DCAA11 /* HomeViewController.swift */,
+				C1793D6C23C7232F00DCAA11 /* SettingViewController.swift */,
+			);
+			path = Demo;
+			sourceTree = "<group>";
+		};
 		C195987B21F8A22600B749B6 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
@@ -68,6 +87,7 @@
 		C1CEE37F2102E631009419C2 /* KCRouter */ = {
 			isa = PBXGroup;
 			children = (
+				C1793D6523C721BF00DCAA11 /* Demo */,
 				C1CEE3802102E631009419C2 /* AppDelegate.swift */,
 				C1CEE3822102E631009419C2 /* ViewController.swift */,
 				C1CEE3842102E631009419C2 /* Main.storyboard */,
@@ -150,8 +170,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				C1CEE3832102E631009419C2 /* ViewController.swift in Sources */,
+				C1793D6723C721DF00DCAA11 /* KCNavigatorMaps.swift in Sources */,
+				C1793D6923C7221D00DCAA11 /* BaseNavigationController.swift in Sources */,
+				C1793D6D23C7232F00DCAA11 /* SettingViewController.swift in Sources */,
 				C195987F21F8A22600B749B6 /* KCRoute.swift in Sources */,
 				C195987E21F8A22600B749B6 /* KCRouter.swift in Sources */,
+				C1793D6B23C7227100DCAA11 /* HomeViewController.swift in Sources */,
 				C1CEE3812102E631009419C2 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

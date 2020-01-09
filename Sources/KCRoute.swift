@@ -61,6 +61,9 @@ public struct KCRouteConf {
     /// 是否使用Present展示
     public var isPresent: Bool
     
+    /// present样式
+    public var presentationStyle: UIModalPresentationStyle
+    
     /// push是否隐藏底部tabBar
     public var hidesBottomBarWhenPushed: Bool
     
@@ -77,6 +80,7 @@ public struct KCRouteConf {
     ///   - className: 控制器名称
     ///   - index: 所在堆栈序号，nil表示任意堆栈都可以
     ///   - isPresent: 是否使用Present展示，默认为false
+    ///   - presentStyle: present样式，默认为fullScreen
     ///   - hideBottom: push是否隐藏底部tabBar，默认为true
     ///   - isOnly: 是否唯一，默认为false
     ///   - isRoot: 是否是根页面，默认为false
@@ -84,6 +88,7 @@ public struct KCRouteConf {
                 to className: String,
                 at index: Int? = nil,
                 isPresent: Bool = false,
+                presentStyle: UIModalPresentationStyle = .fullScreen,
                 hideBottom: Bool = true,
                 isOnly: Bool = false,
                 isRoot: Bool = false)
@@ -94,6 +99,8 @@ public struct KCRouteConf {
         self.tabbarIndex = index
         
         self.isPresent = isPresent
+        self.presentationStyle = presentStyle
+        
         self.hidesBottomBarWhenPushed = hideBottom
         self.isOnly = isOnly
         self.isRoot = isRoot
@@ -190,6 +197,7 @@ extension KCGotoHandler {
         }
         
         let navi = factory.createNavigationController(rootViewController: controller)
+        navi.modalPresentationStyle = conf.presentationStyle
         rootController.present(navi, animated: true, completion: nil)
         return true
     }
